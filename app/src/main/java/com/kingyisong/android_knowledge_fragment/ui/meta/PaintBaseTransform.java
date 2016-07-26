@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Matrix;
@@ -12,6 +13,7 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Shader;
+import android.graphics.SweepGradient;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -43,6 +45,11 @@ public class PaintBaseTransform extends View {
         drawWithShader(canvas);
 
     }
+
+    /**
+     * http://blog.csdn.net/iispring/article/details/50472485
+     * @param canvas
+     */
 
     private void drawWithXfermode(Canvas canvas) {
         //设置背景色
@@ -84,6 +91,11 @@ public class PaintBaseTransform extends View {
 
     }
 
+    /**
+     * http://blog.csdn.net/iispring/article/details/50500106
+     * shader有好几种形式，有位图形式的、有渐进变化的（按照直线、旋转、圆心向外）
+     * @param canvas
+     */
     private void drawWithShader(Canvas canvas) {
         Bitmap bm = Bitmap.createBitmap(new int[] { 0xFFFFFFFF, 0xFFCCCCCC,
                         0xFFCCCCCC, 0xFFFFFFFF }, 2, 2,
@@ -95,12 +107,16 @@ public class PaintBaseTransform extends View {
         m.setScale(6, 6);
         shader.setLocalMatrix(m);
 
+        //RadialGradient gradient = new RadialGradient(300, 600, 100, Color.RED, Color.BLUE, Shader.TileMode.REPEAT);
+
+        SweepGradient gradient1 = new SweepGradient(300, 600, Color.RED, Color.BLUE);
+
         Paint paint = new Paint();
         paint.setStyle(Paint.Style.FILL);
 
-        paint.setShader(shader);
+        paint.setShader(gradient1);
 
-        canvas.drawRect(0 ,0, 500, 500, paint);
+        canvas.drawPaint(paint);
     }
 
 

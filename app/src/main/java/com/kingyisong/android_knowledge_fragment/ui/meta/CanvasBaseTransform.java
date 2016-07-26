@@ -33,7 +33,7 @@ public class CanvasBaseTransform extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        transformRotate(canvas);
+        transformScale(canvas);
     }
 
 
@@ -52,7 +52,7 @@ public class CanvasBaseTransform extends View {
 
         canvas.save();
         canvas.translate(100, 100);
-        canvas.drawColor(Color.BLUE);
+        //canvas.drawColor(Color.BLUE);
         canvas.drawCircle(0, 0, radius, paint);
         canvas.restore();
 
@@ -61,6 +61,19 @@ public class CanvasBaseTransform extends View {
             canvas.drawLine(centerX, centerY, centerX + radius , centerY, paint);
             canvas.rotate(15, centerX, centerY);
         }
+
+    }
+
+
+    private void transformScale(Canvas canvas) {
+        canvas.save();
+        canvas.translate(300, 300);
+        canvas.scale(0.8f, 0.8f);
+        transformRotate(canvas);
+        canvas.restore();
+
+        transformRotate(canvas);
+
 
     }
 
